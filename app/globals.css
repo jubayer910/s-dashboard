@@ -1,26 +1,272 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tokens copied from the v2 Figma frame */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-page: #1b1b1d;
+  --color-raised: #242424;
+  --color-track: #141414;
+  --color-chip: #1f1f1f;
+  --color-line: #313131;
+  --color-line-strong: #414141;
+  --color-row-line: #101010;
+
+  --color-ink: #ebede5;
+  --color-ink-strong: #fcfcfc;
+  --color-label: #e2e2e2;
+  --color-nav: #c7c7c7;
+  --color-kpi: #b9b9b9;
+  --color-caption: #b2b2b2;
+  --color-muted: #7a8075;
+  --color-muted-2: #9c9c9c;
+  --color-axis: #7d818c;
+  --color-section: #494949;
+  --color-th: #5c5c5c;
+  --color-legend: #949c8f;
+  --color-pipe: #b8bdb0;
+  --color-donut-value: #a5a5a5;
+  --color-chevron: #969696;
+
+  --color-lime: #b7f34a;
+  --color-positive: #16a34a;
+  --color-negative: #d0272c;
+  --color-negative-soft: #f87171;
+  --color-series-blue: #31b7e9;
+  --color-series-pink: #e45a9f;
+  --color-tier-eagle: #4ab8f3;
+  --color-tier-platinum: #f34ab9;
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-icon: cubic-bezier(0.2, 0, 0, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* v2 active sidebar item surface; used for hover/highlight in lists and menus */
+@utility nav-surface {
+  background-image:
+    linear-gradient(90deg, rgb(163 230 53 / 0.17) 0%, rgb(163 230 53 / 0.04) 14.208%, rgb(163 230 53 / 0) 22.917%),
+    linear-gradient(var(--color-raised), var(--color-raised));
+  border-color: var(--color-line);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-page);
+  }
+
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  :where(button, a, [role="button"], [tabindex]):focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-lime) 35%, transparent);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Etched divider: 1px black line with a 1px #232323 highlight */
+  .divider-h {
+    height: 1px;
+    flex-shrink: 0;
+    background: #000;
+    box-shadow: 0 1px 0 #232323;
+  }
+
+  .divider-v {
+    width: 1px;
+    flex-shrink: 0;
+    background: #000;
+    box-shadow: 1px 0 0 #232323;
+  }
+
+  /* v2 control surface: buttons, icon buttons, badges */
+  .control {
+    background-color: var(--color-raised);
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    box-shadow: 0 0 4.6px rgb(0 0 0 / 0.5);
+  }
+
+  .overlay-surface {
+    background-color: var(--color-page);
+    border: 1px solid var(--color-line);
+    box-shadow:
+      0 0 4.6px rgb(0 0 0 / 0.5),
+      0 10.5px 48px rgb(148 202 54 / 0.1),
+      0 16px 40px rgb(0 0 0 / 0.35);
+  }
+
+  /* v2 chart tooltip */
+  .tooltip-surface {
+    background-color: #000;
+    border: 0.875px solid var(--color-line-strong);
+    border-radius: 7px;
+    box-shadow: 0 10.5px 24.063px rgb(148 202 54 / 0.1);
+  }
+
+  .pressable {
+    transition-property: scale, border-color, background-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+
+  .pressable:active:not(:disabled, [data-disabled]) {
+    scale: 0.96;
+  }
+
+  /* Menus: 180ms in, 120ms out, growing from the trigger */
+  .pop-menu,
+  .pop-panel {
+    transform-origin: var(--transform-origin);
+    transition-property: opacity, transform;
+    transition-duration: 180ms;
+    transition-timing-function: var(--ease-out-strong);
+  }
+
+  .pop-panel {
+    transition-duration: 200ms;
+  }
+
+  .pop-menu[data-starting-style],
+  .pop-panel[data-starting-style] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .pop-menu[data-ending-style],
+  .pop-panel[data-ending-style] {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition-duration: 120ms;
+    transition-timing-function: ease-out;
+  }
+
+  .tooltip-popup {
+    transform-origin: var(--transform-origin);
+    transition-property: opacity, transform;
+    transition-duration: 125ms;
+    transition-timing-function: ease-out;
+  }
+
+  .tooltip-popup[data-starting-style],
+  .tooltip-popup[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .dialog-backdrop {
+    transition: opacity 200ms ease-out;
+  }
+
+  .dialog-backdrop[data-starting-style],
+  .dialog-backdrop[data-ending-style] {
+    opacity: 0;
+  }
+
+  .dialog-backdrop[data-ending-style] {
+    transition-duration: 150ms;
+  }
+
+  .dialog-popup {
+    transition-property: opacity, transform;
+    transition-duration: 240ms;
+    transition-timing-function: var(--ease-out-strong);
+  }
+
+  .dialog-popup[data-starting-style] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  .dialog-popup[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.98);
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+
+  /* Keyboard-opened overlays and grouped tooltips skip animation */
+  [data-kbd],
+  .tooltip-popup[data-instant] {
+    transition-duration: 0ms !important;
+  }
+
+  /* Contextual icon swap: scale 0.25 → 1, opacity, blur 4px → 0 */
+  .icon-swap {
+    transition-property: opacity, scale, filter;
+    transition-duration: 300ms;
+    transition-timing-function: var(--ease-icon);
+  }
+
+  .icon-swap[data-starting-style],
+  .icon-swap[data-ending-style] {
+    opacity: 0;
+    scale: 0.25;
+    filter: blur(4px);
+  }
+
+  .data-region {
+    transition: opacity 150ms ease-out;
+  }
+
+  .data-region[data-pending="true"] {
+    opacity: 0.55;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop-menu,
+  .pop-panel,
+  .tooltip-popup,
+  .dialog-popup,
+  .icon-swap {
+    transition-property: opacity;
+    transition-duration: 150ms;
+  }
+
+  .pop-menu[data-starting-style],
+  .pop-menu[data-ending-style],
+  .pop-panel[data-starting-style],
+  .pop-panel[data-ending-style],
+  .tooltip-popup[data-starting-style],
+  .tooltip-popup[data-ending-style],
+  .dialog-popup[data-starting-style],
+  .dialog-popup[data-ending-style] {
+    transform: none;
+  }
+
+  .icon-swap[data-starting-style],
+  .icon-swap[data-ending-style] {
+    scale: 1;
+    filter: none;
+  }
+
+  .pressable:active:not(:disabled, [data-disabled]) {
+    scale: 1;
+  }
+}
+
+/* Thin, dark scrollbars that sit quietly on the page surface */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #313131 transparent;
+  }
 }

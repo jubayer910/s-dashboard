@@ -22,7 +22,7 @@ interface DashboardContextValue {
   state: DashboardState;
   pending: boolean;
   update: (patch: Partial<DashboardState>) => void;
-  /** Query string for API calls and exports, e.g. "?range=8w&ws=stride-admin". */
+  /** Query string for API calls and exports, e.g. "?range=8w&ws=vantage-admin". */
   query: string;
   teamId: number | null;
   openTeam: (id: number) => void;

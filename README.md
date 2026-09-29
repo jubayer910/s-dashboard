@@ -1,6 +1,6 @@
-# Stride dashboard
+# Vantage dashboard
 
-Performance overview for Stride Admin, built from the v2 Figma design with Next.js 16, Base UI, Hugeicons (1.25 stroke) and Postgres.
+Performance overview for Vantage Admin, built from the v2 Figma design with Next.js 16, Base UI, Hugeicons (1.25 stroke) and Postgres.
 
 ## Stack
 

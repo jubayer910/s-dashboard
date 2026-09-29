@@ -9,7 +9,7 @@ let instance: Promise<Database> | null = null;
 
 // Route handlers and server components load as separate module graphs in dev;
 // share one in-process PGlite so they read and write the same data.
-const globalForPglite = globalThis as unknown as { stridePglite?: unknown };
+const globalForPglite = globalThis as unknown as { vantagePglite?: unknown };
 
 async function connect(): Promise<Database> {
   // Local development without a cloud database: PGLITE_DIR=.pglite runs Postgres in-process.
@@ -19,8 +19,8 @@ async function connect(): Promise<Database> {
       import("@electric-sql/pglite"),
       import("drizzle-orm/pglite"),
     ]);
-    globalForPglite.stridePglite ??= new PGlite(pgliteDir);
-    return drizzlePglite(globalForPglite.stridePglite as InstanceType<typeof PGlite>, { schema }) as unknown as Database;
+    globalForPglite.vantagePglite ??= new PGlite(pgliteDir);
+    return drizzlePglite(globalForPglite.vantagePglite as InstanceType<typeof PGlite>, { schema }) as unknown as Database;
   }
   const url = process.env.DATABASE_URL;
   if (!url) throw new Error("DATABASE_URL is not set. Connect the Neon database to this project.");

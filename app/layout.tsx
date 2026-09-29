@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Performance overview · Stride Admin",
-  description: "Personal, team and leadership metrics for Stride.",
+  title: "Performance overview · Vantage",
+  description: "Personal, team and leadership metrics for Vantage.",
 };
 
 export const viewport: Viewport = {

@@ -39,13 +39,13 @@ interface LegSeed {
 }
 
 const WORKSPACES = [
-  { id: "stride-admin", name: "Stride Admin", role: "Management", initials: "SA", goalPerPerson: 1.2, sortOrder: 0 },
-  { id: "stride-field", name: "Stride Field", role: "Operations", initials: "SF", goalPerPerson: 1.1, sortOrder: 1 },
-  { id: "stride-partners", name: "Stride Partners", role: "Partners", initials: "SP", goalPerPerson: 1.0, sortOrder: 2 },
+  { id: "vantage-admin", name: "Vantage Admin", role: "Management", initials: "VA", goalPerPerson: 1.2, sortOrder: 0 },
+  { id: "vantage-field", name: "Vantage Field", role: "Operations", initials: "VF", goalPerPerson: 1.1, sortOrder: 1 },
+  { id: "vantage-partners", name: "Vantage Partners", role: "Partners", initials: "VP", goalPerPerson: 1.0, sortOrder: 2 },
 ] as const;
 
 const LEGS: Record<(typeof WORKSPACES)[number]["id"], LegSeed[]> = {
-  "stride-admin": [
+  "vantage-admin": [
     { name: "Luis & Jackie Moreta", people: 16, reporting: 9, tier: null, scope: "mine", productivity: 0.55, since: "2024-02-12" },
     { name: "Julio & Liz Vasquez", people: 55, reporting: 37, tier: "EMERALD", scope: "mine", productivity: 1.15, since: "2024-03-04" },
     { name: "Oscar & Nayrobi Griñán", people: 58, reporting: 31, tier: "EMERALD", scope: "mine", productivity: 0.95, since: "2023-11-20" },
@@ -64,7 +64,7 @@ const LEGS: Record<(typeof WORKSPACES)[number]["id"], LegSeed[]> = {
     { name: "Héctor & Luz Cabrera", people: 150, reporting: 96, tier: "EMERALD", scope: "upper", productivity: 0.9, since: "2022-02-21" },
     { name: "Francisco & Elena Díaz", people: 98, reporting: 64, tier: "EAGLE", scope: "upper", productivity: 1.0, since: "2022-08-01" },
   ],
-  "stride-field": [
+  "vantage-field": [
     { name: "Carlos & Maribel Tavárez", people: 44, reporting: 30, tier: "EMERALD", scope: "mine", productivity: 1.05, since: "2024-01-15" },
     { name: "Pedro & Lucía Guzmán", people: 36, reporting: 22, tier: "EAGLE", scope: "mine", productivity: 0.9, since: "2024-05-06" },
     { name: "Juan & Daniela Rosario", people: 29, reporting: 19, tier: null, scope: "mine", productivity: 0.8, since: "2024-08-19" },
@@ -78,7 +78,7 @@ const LEGS: Record<(typeof WORKSPACES)[number]["id"], LegSeed[]> = {
     { name: "Fernando & Isabel Vargas", people: 132, reporting: 90, tier: "PLATINUM", scope: "upper", productivity: 0.95, since: "2021-11-15" },
     { name: "Ricardo & Teresa Lora", people: 88, reporting: 55, tier: "EAGLE", scope: "upper", productivity: 0.9, since: "2022-06-27" },
   ],
-  "stride-partners": [
+  "vantage-partners": [
     { name: "Gabriel & Mónica Espinal", people: 34, reporting: 24, tier: "EMERALD", scope: "mine", productivity: 1.0, since: "2024-02-05" },
     { name: "Hugo & Verónica Ortiz", people: 26, reporting: 18, tier: "EAGLE", scope: "mine", productivity: 0.9, since: "2024-06-24" },
     { name: "Iván & Claudia Peralta", people: 20, reporting: 13, tier: null, scope: "mine", productivity: 0.8, since: "2024-10-14" },
@@ -203,17 +203,17 @@ async function main() {
 
   const now = Date.now();
   const ago = (minutes: number) => new Date(now - minutes * 60_000);
-  const admin = (name: string) => legIdsByName.get(`stride-admin:${name}`) ?? null;
+  const admin = (name: string) => legIdsByName.get(`vantage-admin:${name}`) ?? null;
   await db.insert(schema.notifications).values([
-    { workspaceId: "stride-admin", kind: "tier", title: "Julio & Liz Vasquez reached Emerald tier", source: "Team performance", legId: admin("Julio & Liz Vasquez"), createdAt: ago(12) },
-    { workspaceId: "stride-admin", kind: "report", title: "Weekly report for Sep 8–14 is ready", source: "Reports", createdAt: ago(62) },
-    { workspaceId: "stride-admin", kind: "alert", title: "Efficiency dropped 2.4 pts vs prior", highlight: "2.4 pts", source: "Alerts", createdAt: ago(185) },
-    { workspaceId: "stride-admin", kind: "mention", title: "Oscar Griñán mentioned you", source: "Weekly analysis", legId: admin("Oscar & Nayrobi Griñán"), createdAt: ago(60 * 26), readAt: ago(60 * 20) },
-    { workspaceId: "stride-admin", kind: "report", title: "Monthly report for August is ready", source: "Reports", createdAt: ago(60 * 24 * 6), readAt: ago(60 * 24 * 5) },
-    { workspaceId: "stride-admin", kind: "mention", title: "Alberto & Ciany mentioned you", source: "Numbers", legId: admin("Alberto & Ciany"), createdAt: ago(60 * 24 * 9), readAt: ago(60 * 24 * 8) },
-    { workspaceId: "stride-field", kind: "tier", title: "Manuel & Sofía Reyes reached Platinum tier", source: "Team performance", legId: legIdsByName.get("stride-field:Manuel & Sofía Reyes") ?? null, createdAt: ago(45) },
-    { workspaceId: "stride-field", kind: "report", title: "Weekly report for Sep 8–14 is ready", source: "Reports", createdAt: ago(90) },
-    { workspaceId: "stride-partners", kind: "alert", title: "Reporting rate fell 4.1 pts vs prior", highlight: "4.1 pts", source: "Alerts", createdAt: ago(240) },
+    { workspaceId: "vantage-admin", kind: "tier", title: "Julio & Liz Vasquez reached Emerald tier", source: "Team performance", legId: admin("Julio & Liz Vasquez"), createdAt: ago(12) },
+    { workspaceId: "vantage-admin", kind: "report", title: "Weekly report for Sep 8–14 is ready", source: "Reports", createdAt: ago(62) },
+    { workspaceId: "vantage-admin", kind: "alert", title: "Efficiency dropped 2.4 pts vs prior", highlight: "2.4 pts", source: "Alerts", createdAt: ago(185) },
+    { workspaceId: "vantage-admin", kind: "mention", title: "Oscar Griñán mentioned you", source: "Weekly analysis", legId: admin("Oscar & Nayrobi Griñán"), createdAt: ago(60 * 26), readAt: ago(60 * 20) },
+    { workspaceId: "vantage-admin", kind: "report", title: "Monthly report for August is ready", source: "Reports", createdAt: ago(60 * 24 * 6), readAt: ago(60 * 24 * 5) },
+    { workspaceId: "vantage-admin", kind: "mention", title: "Alberto & Ciany mentioned you", source: "Numbers", legId: admin("Alberto & Ciany"), createdAt: ago(60 * 24 * 9), readAt: ago(60 * 24 * 8) },
+    { workspaceId: "vantage-field", kind: "tier", title: "Manuel & Sofía Reyes reached Platinum tier", source: "Team performance", legId: legIdsByName.get("vantage-field:Manuel & Sofía Reyes") ?? null, createdAt: ago(45) },
+    { workspaceId: "vantage-field", kind: "report", title: "Weekly report for Sep 8–14 is ready", source: "Reports", createdAt: ago(90) },
+    { workspaceId: "vantage-partners", kind: "alert", title: "Reporting rate fell 4.1 pts vs prior", highlight: "4.1 pts", source: "Alerts", createdAt: ago(240) },
   ]);
 
   const [{ count }] = (await db.execute(sql`select count(*)::int as count from daily_metrics`)).rows as { count: number }[];

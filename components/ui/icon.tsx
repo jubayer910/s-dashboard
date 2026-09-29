@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 
 export type IconData = IconSvgElement;
 
-/** Hugeicons at the Stride stroke weight (1.25), coloured by currentColor. */
+/** Hugeicons at the Vantage stroke weight (1.25), coloured by currentColor. */
 export function Icon({ icon, size = 16, className }: { icon: IconData; size?: number; className?: string }) {
   return (
     <HugeiconsIcon

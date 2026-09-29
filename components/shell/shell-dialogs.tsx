@@ -66,7 +66,7 @@ function MessageDialog({ legId, legName }: { legId: number; legName: string }) {
     <DialogFrame
       icon={Mail01Icon}
       title={`Message ${legName}`}
-      description="Both leaders receive it in their Stride inbox."
+      description="Both leaders receive it in their Vantage inbox."
       onSubmit={(event) => {
         event.preventDefault();
         startTransition(async () => {

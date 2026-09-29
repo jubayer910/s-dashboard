@@ -16,8 +16,8 @@ function WorkspaceLogo({ workspace, size = 40 }: { workspace: Workspace; size?: 
       className="grid shrink-0 place-items-center overflow-hidden rounded-[7px] bg-raised"
       style={{ width: size, height: size }}
     >
-      {workspace.id === "stride-admin" ? (
-        <Image src="/stride-logomark.svg" alt="" width={Math.round(size * 0.66)} height={Math.round(size * 0.6)} style={{ height: "auto" }} priority />
+      {workspace.id === "vantage-admin" ? (
+        <Image src="/vantage-mark.svg" alt="" width={Math.round(size * 0.62)} height={Math.round(size * 0.62)} style={{ height: "auto" }} priority />
       ) : (
         <span className="text-[14px] leading-none font-medium text-nav">{workspace.initials}</span>
       )}

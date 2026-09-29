@@ -24,7 +24,7 @@ export default async function SectionPage(props: PageProps<"/[...section]">) {
       <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-24 text-center">
         <p className="text-[18px] leading-[1.1] font-medium tracking-[-0.36px] text-ink">This page isn’t designed yet</p>
         <p className="max-w-[420px] text-[14px] leading-5 text-muted">
-          The Stride design currently covers Performance overview. {item.label} will use the same components once its screens are ready.
+          The Vantage design currently covers Performance overview. {item.label} will use the same components once its screens are ready.
         </p>
         <Link href={`/?ws=${shell.workspace.id}`} className={`${secondaryButtonClass} mt-2`}>
           Back to Performance overview

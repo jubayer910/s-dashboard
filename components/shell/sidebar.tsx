@@ -31,7 +31,7 @@ export function Sidebar() {
                   return (
                     <li key={item.href} className={cn("flex w-full items-center", active ? "gap-[7px]" : "pl-[13px]")}>
                       {active ? (
-                        <span className="h-[26px] w-[5px] shrink-0 rounded-r-[6px] bg-lime shadow-[0_0_7.2px_rgb(183_243_74/0.5)]" />
+                        <span className="h-[26px] w-[5px] shrink-0 rounded-r-[6px] bg-brand shadow-[0_0_7.2px_rgb(123_91_255/0.5)]" />
                       ) : null}
                       <Link
                         href={`${item.href}?ws=${workspace.id}`}
@@ -46,7 +46,7 @@ export function Sidebar() {
                           <span className="truncate">{item.label}</span>
                         </span>
                         {item.href === "/" ? (
-                          <span className="tnum rounded-[18px] bg-chip px-[5px] py-[3px] text-[12px] leading-3 font-medium tracking-[-0.24px] text-[#d6d6d6]">
+                          <span className="tnum rounded-[18px] bg-chip px-[5px] py-[3px] text-[12px] leading-3 font-medium tracking-[-0.24px] text-[#cfcfcf]">
                             {memberCount}
                           </span>
                         ) : null}

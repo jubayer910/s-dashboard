@@ -31,7 +31,7 @@ function Sparkline({ values }: { values: number[] }) {
   const points = values.map((v, i) => `${((i / (values.length - 1)) * 70).toFixed(1)},${(22 - ((v - min) / span) * 20).toFixed(1)}`).join(" ");
   return (
     <svg viewBox="0 0 70 24" width={70} height={24} aria-hidden>
-      <polyline points={points} fill="none" stroke="#a3e635" strokeWidth={1.2} strokeLinejoin="round" strokeLinecap="round" />
+      <polyline points={points} fill="none" stroke="#7b5bff" strokeWidth={1.2} strokeLinejoin="round" strokeLinecap="round" />
     </svg>
   );
 }
@@ -99,7 +99,7 @@ function Row({ row, hasCompare }: { row: TeamRow; hasCompare: boolean }) {
         className={cn(
           GRID,
           "group h-16 cursor-pointer items-center border-b border-row-line bg-page outline-none",
-          "transition-[background-color] duration-100 ease-out hover:bg-raised hover:duration-0 focus-visible:bg-raised focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-lime has-[[data-popup-open]]:bg-raised",
+          "transition-[background-color] duration-100 ease-out hover:bg-raised hover:duration-0 focus-visible:bg-raised focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand has-[[data-popup-open]]:bg-raised",
         )}
       >
         <div role="cell" className="flex min-w-0 items-center gap-3 py-3 pr-4 pl-3">
@@ -112,7 +112,7 @@ function Row({ row, hasCompare }: { row: TeamRow; hasCompare: boolean }) {
               <span>{row.people} people</span>
               {row.reporting ? (
                 <>
-                  <span aria-hidden className="size-[3px] rounded-full bg-[#d9d9d9]" />
+                  <span aria-hidden className="size-[3px] rounded-full bg-[#6b6b6b]" />
                   <span>{row.reporting} reporting</span>
                 </>
               ) : null}
@@ -140,7 +140,7 @@ function Row({ row, hasCompare }: { row: TeamRow; hasCompare: boolean }) {
           role="cell"
           className={cn(
             "tnum text-right text-[14px] font-medium",
-            row.momentum === null ? "text-muted" : row.momentum >= 0 ? "text-[#4ade80]" : "text-negative-soft",
+            row.momentum === null ? "text-muted" : row.momentum >= 0 ? "text-[#5bc98b]" : "text-negative-soft",
           )}
         >
           {row.momentum === null ? (hasCompare ? "New" : "—") : `${row.momentum >= 0 ? "+" : MINUS}${Math.abs(Math.round(row.momentum * 100))}%`}

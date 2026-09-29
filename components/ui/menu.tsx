@@ -10,7 +10,7 @@ import { Icon, type IconData } from "./icon";
 type Align = "start" | "center" | "end";
 
 /**
- * Menu surface from the Figma set: #1B1B1D, 1px #313131, radius 10 (item 6 + padding 4).
+ * Menu surface from the Figma set: #1A1A1A, 1px #2e2e2e, radius 10 (item 6 + padding 4).
  * Opens in 180ms from the trigger; opened or closed from the keyboard it doesn't animate.
  */
 export function Menu({
@@ -153,7 +153,7 @@ export function MenuRadioItem({ value, label, meta, closeOnClick = true }: { val
       <span className="flex shrink-0 items-center gap-2">
         {meta ? <span className="font-mono text-[11px] leading-[15px] text-muted">{meta}</span> : null}
         <CheckIndicator>
-          <BaseMenu.RadioItemIndicator className="icon-swap text-lime">
+          <BaseMenu.RadioItemIndicator className="icon-swap text-brand">
             <Icon icon={Tick02Icon} size={15} />
           </BaseMenu.RadioItemIndicator>
         </CheckIndicator>
@@ -180,7 +180,7 @@ export function MenuCheckboxItem({
     >
       <span className="truncate">{label}</span>
       <CheckIndicator>
-        <BaseMenu.CheckboxItemIndicator className="icon-swap text-lime">
+        <BaseMenu.CheckboxItemIndicator className="icon-swap text-brand">
           <Icon icon={Tick02Icon} size={15} />
         </BaseMenu.CheckboxItemIndicator>
       </CheckIndicator>

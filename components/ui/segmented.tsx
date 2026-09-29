@@ -14,7 +14,7 @@ export interface SegmentOption<T extends string> {
 }
 
 /**
- * Segmented / Tabs (track #141414 with inner shadow) and Segmented / Range.
+ * Segmented / Tabs (track #191919 with inner shadow) and Segmented / Range.
  * High-frequency control: the active surface swaps with a 150ms background change, no sliding pill.
  */
 export function Segmented<T extends string>({
@@ -61,7 +61,7 @@ export function Segmented<T extends string>({
             variant === "tabs"
               ? "data-[pressed]:border-track data-[pressed]:shadow-[0_0_4.6px_rgb(0_0_0/0.5),inset_0_2px_4px_rgb(255_255_255/0.2)]"
               : "data-[pressed]:border-line",
-            "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-lime",
+            "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand",
           )}
         >
           {option.icon ? <Icon icon={option.icon} size={16} /> : null}

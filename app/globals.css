@@ -1,42 +1,53 @@
 @import "tailwindcss";
 
-/* Tokens copied from the v2 Figma frame */
+/* Tokens from the v2 Figma frame, neutral/violet palette */
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  --color-page: #1b1b1d;
-  --color-raised: #242424;
-  --color-track: #141414;
+  --color-page: #1a1a1a;
+  --color-raised: #232323;
+  --color-track: #191919;
   --color-chip: #1f1f1f;
-  --color-line: #313131;
-  --color-line-strong: #414141;
-  --color-row-line: #101010;
+  --color-line: #2e2e2e;
+  --color-line-strong: #3a3a3a;
+  --color-row-line: #222222;
 
-  --color-ink: #ebede5;
-  --color-ink-strong: #fcfcfc;
-  --color-label: #e2e2e2;
-  --color-nav: #c7c7c7;
-  --color-kpi: #b9b9b9;
-  --color-caption: #b2b2b2;
-  --color-muted: #7a8075;
-  --color-muted-2: #9c9c9c;
-  --color-axis: #7d818c;
-  --color-section: #494949;
-  --color-th: #5c5c5c;
-  --color-legend: #949c8f;
-  --color-pipe: #b8bdb0;
-  --color-donut-value: #a5a5a5;
-  --color-chevron: #969696;
+  --color-ink: #ededed;
+  --color-ink-strong: #f5f5f5;
+  --color-label: #dadada;
+  --color-nav: #b4b4b4;
+  --color-kpi: #a0a0a0;
+  --color-caption: #8f8f8f;
+  --color-muted: #8a8a8a;
+  --color-muted-2: #909090;
+  --color-axis: #7c7c7c;
+  --color-section: #5f5f5f;
+  --color-th: #7c7c7c;
+  --color-legend: #8a8a8a;
+  --color-pipe: #a0a0a0;
+  --color-donut-value: #9a9a9a;
+  --color-chevron: #8a8a8a;
 
-  --color-lime: #b7f34a;
-  --color-positive: #16a34a;
-  --color-negative: #d0272c;
-  --color-negative-soft: #f87171;
-  --color-series-blue: #31b7e9;
-  --color-series-pink: #e45a9f;
-  --color-tier-eagle: #4ab8f3;
-  --color-tier-platinum: #f34ab9;
+  --color-brand: #7b5bff;
+  --color-brand-soft: #9e7bff;
+  --color-positive: #3fb37f;
+  --color-positive-soft: #5bc98b;
+  --color-negative: #e5484d;
+  --color-negative-soft: #f07178;
+  --color-series-blue: #7aa2f7;
+  --color-series-pink: #e5559b;
+  --color-series-amber: #e3b341;
+
+  --color-tier-emerald: #6bcb8b;
+  --color-tier-emerald-bg: #16251c;
+  --color-tier-emerald-line: #1f3326;
+  --color-tier-eagle: #7aa2f7;
+  --color-tier-eagle-bg: #1b2233;
+  --color-tier-eagle-line: #24304a;
+  --color-tier-platinum: #9e7bff;
+  --color-tier-platinum-bg: #211b36;
+  --color-tier-platinum-line: #2e2650;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
@@ -46,7 +57,7 @@
 /* v2 active sidebar item surface; used for hover/highlight in lists and menus */
 @utility nav-surface {
   background-image:
-    linear-gradient(90deg, rgb(163 230 53 / 0.17) 0%, rgb(163 230 53 / 0.04) 14.208%, rgb(163 230 53 / 0) 22.917%),
+    linear-gradient(90deg, rgb(123 91 255 / 0.17) 0%, rgb(123 91 255 / 0.04) 14.208%, rgb(123 91 255 / 0) 22.917%),
     linear-gradient(var(--color-raised), var(--color-raised));
   border-color: var(--color-line);
 }
@@ -67,12 +78,12 @@
   }
 
   :where(button, a, [role="button"], [tabindex]):focus-visible {
-    outline: 2px solid var(--color-lime);
+    outline: 2px solid var(--color-brand);
     outline-offset: 2px;
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-lime) 35%, transparent);
+    background: color-mix(in oklab, var(--color-brand) 35%, transparent);
   }
 }
 
@@ -100,12 +111,25 @@
     box-shadow: 0 0 4.6px rgb(0 0 0 / 0.5);
   }
 
+  /* KPI icon: neutral at rest, tinted with a 4px glow while the card is hovered (v2 hover row) */
+  .kpi-icon {
+    transition-property: color, filter;
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out-strong);
+  }
+
+  .kpi-cell:hover .kpi-icon,
+  .kpi-cell:focus-within .kpi-icon {
+    color: var(--kpi-accent);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--kpi-accent) 90%, transparent));
+  }
+
   .overlay-surface {
     background-color: var(--color-page);
     border: 1px solid var(--color-line);
     box-shadow:
       0 0 4.6px rgb(0 0 0 / 0.5),
-      0 10.5px 48px rgb(148 202 54 / 0.1),
+      0 10.5px 48px rgb(123 91 255 / 0.1),
       0 16px 40px rgb(0 0 0 / 0.35);
   }
 
@@ -114,7 +138,7 @@
     background-color: #000;
     border: 0.875px solid var(--color-line-strong);
     border-radius: 7px;
-    box-shadow: 0 10.5px 24.063px rgb(148 202 54 / 0.1);
+    box-shadow: 0 10.5px 24.063px rgb(123 91 255 / 0.1);
   }
 
   .pressable {
@@ -261,12 +285,16 @@
   .pressable:active:not(:disabled, [data-disabled]) {
     scale: 1;
   }
+
+  .kpi-icon {
+    transition-duration: 0ms;
+  }
 }
 
 /* Thin, dark scrollbars that sit quietly on the page surface */
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-color: #313131 transparent;
+    scrollbar-color: #2e2e2e transparent;
   }
 }

@@ -50,7 +50,7 @@ function DialogFrame({
 
 function SubmitButton({ pending, label }: { pending: boolean; label: string }) {
   return (
-    <Button type="submit" icon={Tick02Icon} iconClassName="text-lime" className="text-lime" disabled={pending}>
+    <Button type="submit" icon={Tick02Icon} iconClassName="text-brand" className="text-brand" disabled={pending}>
       {pending ? "Saving…" : label}
     </Button>
   );

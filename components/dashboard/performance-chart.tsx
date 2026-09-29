@@ -22,9 +22,9 @@ const SERIES: {
   width: number;
   opacity: number;
 }[] = [
-  { key: "customers", label: "Customers", legend: "#31b7e9", stroke: "#31b7e9", dot: "#32b7e9", width: 1.07, opacity: 0.2 },
-  { key: "mg1", label: "MGI", legend: "#e45a9f", stroke: "#e45a9f", dot: "#e15e9b", width: 1.07, opacity: 0.3 },
-  { key: "efficiency", label: "Efficiency", legend: "#b7f34a", stroke: "#b7f34a", dot: "#b6f14a", width: 2, opacity: 1 },
+  { key: "customers", label: "Customers", legend: "#7aa2f7", stroke: "#7aa2f7", dot: "#7aa2f7", width: 1.07, opacity: 0.2 },
+  { key: "mg1", label: "MGI", legend: "#e5559b", stroke: "#e5559b", dot: "#e5559b", width: 1.07, opacity: 0.3 },
+  { key: "efficiency", label: "Efficiency", legend: "#7b5bff", stroke: "#7b5bff", dot: "#7b5bff", width: 2, opacity: 1 },
 ];
 
 const HEIGHT = 212;
@@ -151,7 +151,7 @@ export function PerformanceChart() {
                   onFocus={() => setHoveredLegend(s.key)}
                   onBlur={() => setHoveredLegend(null)}
                   className={cn(
-                    "-m-[3px] flex items-center gap-1 rounded-[3px] p-[3px] text-[9px] leading-none text-legend outline-none transition-opacity duration-150 ease-out focus-visible:outline-1 focus-visible:outline-lime",
+                    "-m-[3px] flex items-center gap-1 rounded-[3px] p-[3px] text-[9px] leading-none text-legend outline-none transition-opacity duration-150 ease-out focus-visible:outline-1 focus-visible:outline-brand",
                     off && "line-through opacity-40",
                   )}
                 >
@@ -183,7 +183,7 @@ export function PerformanceChart() {
           width="100%"
           height={HEIGHT}
           viewBox={`0 0 ${width} ${HEIGHT}`}
-          className="block touch-pan-y overflow-visible outline-none focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-lime"
+          className="block touch-pan-y overflow-visible outline-none focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-brand"
           onPointerMove={onPointerMove}
           onPointerLeave={() => setActive(null)}
           onKeyDown={onKeyDown}
@@ -191,8 +191,8 @@ export function PerformanceChart() {
         >
           <defs>
             <linearGradient id="trend-area" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#b7f34a" />
-              <stop offset="100%" stopColor="#b7f34a" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="#7b5bff" />
+              <stop offset="100%" stopColor="#7b5bff" stopOpacity="0.1" />
             </linearGradient>
             <filter id="trend-line-shadow" x="-5%" y="-20%" width="110%" height="140%">
               <feDropShadow dx="0" dy="3.06" stdDeviation="1.53" floodColor="#000" floodOpacity="0.04" />
@@ -243,7 +243,7 @@ export function PerformanceChart() {
                 x2={dotX}
                 y1={PAD_TOP - 1.5}
                 y2={HEIGHT - PAD_BOTTOM + 0.5}
-                stroke="#9e9e9e"
+                stroke="#909090"
                 strokeOpacity={0.1}
                 strokeWidth={0.76}
                 strokeDasharray="4 4"

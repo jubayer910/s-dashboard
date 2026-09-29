@@ -35,7 +35,7 @@ export function PipelineRow({
         { color, label: "Of positive messages", value: formatPercent(share) },
       ]}
     >
-      <div tabIndex={0} className="-mx-1 flex flex-col gap-[6px] rounded-[4px] px-1 outline-none focus-visible:outline-2 focus-visible:outline-lime">
+      <div tabIndex={0} className="-mx-1 flex flex-col gap-[6px] rounded-[4px] px-1 outline-none focus-visible:outline-2 focus-visible:outline-brand">
         <div className="flex items-center justify-between text-[10px] leading-normal text-pipe">
           <span>{label}</span>
           <span className="flex w-[90px] items-center justify-between">
@@ -48,7 +48,7 @@ export function PipelineRow({
             ) : null}
           </span>
         </div>
-        <div className="h-[7px] w-full overflow-hidden rounded-[4px/0.75px] bg-lime/10">
+        <div className="h-[7px] w-full overflow-hidden rounded-[4px/0.75px] bg-brand/10">
           <div
             className="h-full rounded-[4px/0.75px] transition-[width] duration-[250ms] ease-[var(--ease-in-out-strong)]"
             style={{ width: `${Math.max(share * 100, value > 0 ? 1 : 0)}%`, backgroundColor: color }}
@@ -61,10 +61,10 @@ export function PipelineRow({
 
 function ConversionPipeline({ pipeline }: { pipeline: PipelineData }) {
   const stages = [
-    { label: "Positive messages", value: pipeline.positive, color: "#bef264" },
-    { label: "MG1", value: pipeline.mg1, color: "#a3e735" },
-    { label: "Follow up 2+", value: pipeline.followUps, color: "#84cd16" },
-    { label: "New customers", value: pipeline.newCustomers, color: "#65a30d" },
+    { label: "Positive messages", value: pipeline.positive, color: "#9e7bff" },
+    { label: "MG1", value: pipeline.mg1, color: "#7b5bff" },
+    { label: "Follow up 2+", value: pipeline.followUps, color: "#6a4bf0" },
+    { label: "New customers", value: pipeline.newCustomers, color: "#5a3bd6" },
   ];
   return (
     <section aria-labelledby="pipeline-title" className="flex flex-col gap-[14px] px-[13px] pt-[18px] pb-5">
@@ -86,10 +86,10 @@ function ConversionPipeline({ pipeline }: { pipeline: PipelineData }) {
 }
 
 const SOURCES: { key: keyof SourcesData; label: string; color: string }[] = [
-  { key: "walkIns", label: "Walk-ins", color: "#b7f34a" },
-  { key: "referrals", label: "Referrals", color: "#df46aa" },
-  { key: "campaigns", label: "Campaigns", color: "#4ab8f3" },
-  { key: "other", label: "Other", color: "#f3854a" },
+  { key: "walkIns", label: "Walk-ins", color: "#7b5bff" },
+  { key: "referrals", label: "Referrals", color: "#e5559b" },
+  { key: "campaigns", label: "Campaigns", color: "#7aa2f7" },
+  { key: "other", label: "Other", color: "#e3b341" },
 ];
 
 function arcPath(cx: number, cy: number, r: number, start: number, end: number) {
@@ -124,7 +124,7 @@ function SourceDonut({ sources }: { sources: SourcesData }) {
                 fill="none"
                 strokeWidth={21}
                 strokeLinecap="butt"
-                stroke={active && active !== a.key ? `color-mix(in srgb, ${a.color} 35%, #1b1b1d)` : a.color}
+                stroke={active && active !== a.key ? `color-mix(in srgb, ${a.color} 35%, #1a1a1a)` : a.color}
                 className="transition-[stroke] duration-150 ease-out"
                 onMouseEnter={() => setActive(a.key)}
               />
@@ -193,7 +193,7 @@ export function LeaderboardRow({ row, onOpen, subtitle }: { row: LeaderRow; onOp
           {subtitle ? <span className="truncate text-[12px] leading-4 text-muted-2">{subtitle}</span> : null}
         </span>
         {row.pinned ? (
-          <span className="text-lime" aria-label="Pinned">
+          <span className="text-brand" aria-label="Pinned">
             <Icon icon={Pin02Icon} size={14} />
           </span>
         ) : null}

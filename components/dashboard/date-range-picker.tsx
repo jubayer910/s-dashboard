@@ -121,11 +121,11 @@ function MonthGrid({
                   onKeyDown={(event) => onKeyDown(event, day)}
                   className={cn(
                     "tnum relative grid h-8 w-[34px] place-items-center text-[14px] leading-5 outline-none select-none disabled:opacity-30",
-                    "focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-lime",
-                    inBand && "bg-lime/10 text-lime",
+                    "focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand",
+                    inBand && "bg-brand/10 text-brand",
                     inBand && leftEdge && "rounded-l-[6px]",
                     inBand && rightEdge && "rounded-r-[6px]",
-                    (isStart || isEnd) && "bg-lime font-medium text-track",
+                    (isStart || isEnd) && "bg-brand font-medium text-white",
                     isStart && !isEnd && "rounded-l-[6px]",
                     isEnd && !isStart && "rounded-r-[6px]",
                     isStart && isEnd && "rounded-[6px]",
@@ -134,7 +134,7 @@ function MonthGrid({
                   )}
                 >
                   {date}
-                  {day === asOf ? <span aria-hidden className="absolute bottom-[3px] left-1/2 size-1 -translate-x-1/2 rounded-[1px] bg-lime" /> : null}
+                  {day === asOf ? <span aria-hidden className="absolute bottom-[3px] left-1/2 size-1 -translate-x-1/2 rounded-[1px] bg-brand" /> : null}
                 </button>
               </span>
             );
@@ -286,7 +286,7 @@ export function DateRangePicker({
                     className="flex h-[30px] items-center justify-between rounded-[6px] border border-transparent px-[6px] text-left text-[14px] tracking-[-0.28px] text-nav outline-none hover:nav-surface focus-visible:nav-surface aria-pressed:text-ink"
                   >
                     {p.label}
-                    {activePreset === p.key ? <Icon icon={Tick02Icon} size={15} className="icon-swap text-lime" /> : null}
+                    {activePreset === p.key ? <Icon icon={Tick02Icon} size={15} className="icon-swap text-brand" /> : null}
                   </button>
                 ))}
                 <span
@@ -294,7 +294,7 @@ export function DateRangePicker({
                   className="flex h-[30px] items-center justify-between rounded-[6px] border border-transparent px-[6px] text-[14px] tracking-[-0.28px] text-nav aria-pressed:text-ink"
                 >
                   Custom
-                  {!activePreset ? <Icon icon={Tick02Icon} size={15} className="text-lime" /> : null}
+                  {!activePreset ? <Icon icon={Tick02Icon} size={15} className="text-brand" /> : null}
                 </span>
               </div>
               <Divider orientation="vertical" />
@@ -348,7 +348,7 @@ export function DateRangePicker({
               </p>
               <div className="flex items-center gap-[10px]">
                 <Button onClick={() => onOpenChange(false)}>Cancel</Button>
-                <Button icon={Tick02Icon} iconClassName="text-lime" className="text-lime" onClick={apply}>
+                <Button icon={Tick02Icon} iconClassName="text-brand" className="text-brand" onClick={apply}>
                   Apply
                 </Button>
               </div>

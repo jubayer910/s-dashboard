@@ -125,10 +125,10 @@ export function TeamDetailDialog() {
               {detail ? (
                 (() => {
                   const stages = [
-                    { label: "Positive messages", value: detail.pipeline.positive, color: "#bef264" },
-                    { label: "MG1", value: detail.pipeline.mg1, color: "#a3e735" },
-                    { label: "Follow up 2+", value: detail.pipeline.followUps, color: "#84cd16" },
-                    { label: "New customers", value: detail.pipeline.newCustomers, color: "#65a30d" },
+                    { label: "Positive messages", value: detail.pipeline.positive, color: "#9e7bff" },
+                    { label: "MG1", value: detail.pipeline.mg1, color: "#7b5bff" },
+                    { label: "Follow up 2+", value: detail.pipeline.followUps, color: "#6a4bf0" },
+                    { label: "New customers", value: detail.pipeline.newCustomers, color: "#5a3bd6" },
                   ];
                   return stages.map((stage, i) => (
                     <PipelineRow key={stage.label} {...stage} total={detail.pipeline.positive} previous={i > 0 ? stages[i - 1] : undefined} />
@@ -148,7 +148,7 @@ export function TeamDetailDialog() {
                   Top members
                 </h3>
                 {detail && detail.members.length > 3 ? (
-                  <button type="button" onClick={() => setShowAll((v) => !v)} className="rounded-[4px] text-[12px] leading-4 text-lime outline-none hover:underline">
+                  <button type="button" onClick={() => setShowAll((v) => !v)} className="rounded-[4px] text-[12px] leading-4 text-brand outline-none hover:underline">
                     {showAll ? "Show top 3" : `View all ${detail.members.length}`}
                   </button>
                 ) : null}
@@ -193,8 +193,8 @@ export function TeamDetailDialog() {
           </Button>
           <Button
             icon={pinned ? PinOffIcon : Pin02Icon}
-            iconClassName="text-lime"
-            className="text-lime"
+            iconClassName="text-brand"
+            className="text-brand"
             disabled={pinning || !shownId}
             onClick={() => shownId && toggle({ id: shownId, name, pinned })}
           >

@@ -61,7 +61,7 @@ function NotificationItem({ item, onSelect }: { item: NotificationData; onSelect
           </span>
           <span className="flex items-center gap-[6px] text-[12px] leading-4 text-muted-2">
             <span>{relativeTime(item.createdAt)}</span>
-            <span aria-hidden className="size-[3px] rounded-full bg-[#d9d9d9]" />
+            <span aria-hidden className="size-[3px] rounded-full bg-[#6b6b6b]" />
             <span className="truncate">{item.source}</span>
           </span>
         </span>
@@ -69,7 +69,7 @@ function NotificationItem({ item, onSelect }: { item: NotificationData; onSelect
           <span
             aria-label={unread ? "Unread" : undefined}
             className={cn(
-              "block size-2 rounded-[2px] bg-lime shadow-[inset_0_3.5px_3.5px_rgb(255_255_255/0.29)] transition-[opacity,scale,filter] duration-300 ease-[var(--ease-icon)]",
+              "block size-2 rounded-[2px] bg-brand shadow-[inset_0_3.5px_3.5px_rgb(255_255_255/0.29)] transition-[opacity,scale,filter] duration-300 ease-[var(--ease-icon)]",
               unread ? "scale-100 opacity-100 blur-0" : "scale-[0.25] opacity-0 blur-[4px]",
             )}
           />
@@ -124,7 +124,7 @@ export function NotificationsPopover() {
         <span
           aria-hidden
           className={cn(
-            "absolute top-[6px] right-[6px] size-[6px] rounded-full bg-lime ring-2 ring-raised transition-[opacity,scale,filter] duration-300 ease-[var(--ease-icon)]",
+            "absolute top-[6px] right-[6px] size-[6px] rounded-full bg-brand ring-2 ring-raised transition-[opacity,scale,filter] duration-300 ease-[var(--ease-icon)]",
             unread > 0 ? "scale-100 opacity-100 blur-0" : "scale-[0.25] opacity-0 blur-[4px]",
           )}
         />
@@ -138,7 +138,7 @@ export function NotificationsPopover() {
                 type="button"
                 onClick={markAll}
                 disabled={unread === 0}
-                className="rounded-[4px] text-[12px] leading-4 text-lime outline-none hover:underline disabled:pointer-events-none disabled:text-muted"
+                className="rounded-[4px] text-[12px] leading-4 text-brand outline-none hover:underline disabled:pointer-events-none disabled:text-muted"
               >
                 Mark all as read
               </button>
@@ -152,7 +152,7 @@ export function NotificationsPopover() {
                   setShowAll(false);
                 }}
                 options={[
-                  { value: "all", label: <>All <span className="tnum font-mono text-[11px] text-lime">{unread}</span></> },
+                  { value: "all", label: <>All <span className="tnum font-mono text-[11px] text-brand">{unread}</span></> },
                   { value: "mention", label: <>Mentions <span className="tnum font-mono text-[11px] text-muted">{mentions}</span></> },
                   { value: "report", label: "Reports" },
                 ]}

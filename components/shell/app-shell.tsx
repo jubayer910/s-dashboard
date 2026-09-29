@@ -28,7 +28,7 @@ export function AppShell({ data, page, children }: { data: ShellData; page: stri
             classNames: {
               toast:
                 "overlay-surface flex w-[356px] items-center gap-3 rounded-[10px] px-4 py-3 text-[14px] leading-5 text-ink",
-              icon: "text-lime",
+              icon: "text-brand",
               error: "[&_[data-icon]]:text-negative-soft",
             },
           }}

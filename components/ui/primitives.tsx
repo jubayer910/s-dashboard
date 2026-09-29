@@ -26,16 +26,16 @@ export function SectionLabel({ children, className }: { children: ReactNode; cla
 
 /* Badge / Tier */
 const TIER_COLOR: Record<Tier, string> = {
-  EMERALD: "text-lime",
-  EAGLE: "text-tier-eagle",
-  PLATINUM: "text-tier-platinum",
+  EMERALD: "border-tier-emerald-line bg-tier-emerald-bg text-tier-emerald",
+  EAGLE: "border-tier-eagle-line bg-tier-eagle-bg text-tier-eagle",
+  PLATINUM: "border-tier-platinum-line bg-tier-platinum-bg text-tier-platinum",
 };
 
 export function TierBadge({ tier }: { tier: Tier }) {
   return (
     <span
       className={cn(
-        "inline-flex h-[18px] shrink-0 items-center rounded-[6px] border border-line bg-raised px-[6px] text-[10px] leading-none font-medium tracking-[-0.06px] drop-shadow-[0_0_2.3px_rgb(0_0_0/0.5)]",
+        "inline-flex h-[18px] shrink-0 items-center rounded-[6px] border px-[6px] text-[10px] leading-none font-medium tracking-[-0.06px] drop-shadow-[0_0_2.3px_rgb(0_0_0/0.5)]",
         TIER_COLOR[tier],
       )}
     >

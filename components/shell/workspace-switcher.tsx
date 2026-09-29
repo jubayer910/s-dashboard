@@ -34,7 +34,7 @@ export function WorkspaceSwitcher() {
     <BaseMenu.Root onOpenChange={(_, details) => setKeyboard(details.event instanceof KeyboardEvent)}>
       <BaseMenu.Trigger
         aria-label={`Switch workspace, current: ${workspace.name}`}
-        className="group flex w-full items-center justify-between gap-[10px] rounded-[6px] border border-transparent p-[3.5px] text-left outline-none hover:nav-surface data-[popup-open]:nav-surface focus-visible:outline-2 focus-visible:outline-lime"
+        className="group flex w-full items-center justify-between gap-[10px] rounded-[6px] border border-transparent p-[3.5px] text-left outline-none hover:nav-surface data-[popup-open]:nav-surface focus-visible:outline-2 focus-visible:outline-brand"
       >
         <span className="flex min-w-0 items-center gap-[10px]">
           <span className="pressable">
@@ -70,7 +70,7 @@ export function WorkspaceSwitcher() {
                       <span className="truncate text-[12px] leading-4 text-axis">{w.role}</span>
                     </span>
                   </span>
-                  {w.id === workspace.id ? <Icon icon={Tick02Icon} size={15} className="text-lime" /> : null}
+                  {w.id === workspace.id ? <Icon icon={Tick02Icon} size={15} className="text-brand" /> : null}
                 </BaseMenu.Item>
               ))}
             </MenuGroup>

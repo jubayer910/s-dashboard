@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type RefObject } from 
 import { Icon } from "@/components/ui/icon";
 import { Button, Divider, IconButton } from "@/components/ui/primitives";
 import { cn } from "@/lib/cn";
+import { useMediaQuery } from "@/lib/use-media-query";
 import { RANGE_LABELS, type RangeKey, resolvePresetRange } from "@/lib/dashboard-state";
 import {
   addDays,
@@ -187,8 +188,12 @@ export function DateRangePicker({
     }
   });
 
+  // Two months side by side from 768px; one month on phones.
+  const twoMonths = useMediaQuery("(min-width: 768px)", true);
   const leftMonth = shiftMonth(rightMonth, -1);
-  const canPrev = monthKey(leftMonth) > monthKey(monthOf(minDay));
+  const firstMonth = twoMonths ? leftMonth : rightMonth;
+  const months = twoMonths ? [leftMonth, rightMonth] : [rightMonth];
+  const canPrev = monthKey(firstMonth) > monthKey(monthOf(minDay));
   const canNext = monthKey(rightMonth) < monthKey(monthOf(asOf));
 
   const activePreset = PRESETS.find((p) => {
@@ -211,7 +216,7 @@ export function DateRangePicker({
     const clamped = minIso(maxIso(day, minDay), asOf);
     const target = monthOf(clamped);
     if (monthKey(target) > monthKey(rightMonth)) setRightMonth(target);
-    else if (monthKey(target) < monthKey(leftMonth)) setRightMonth(shiftMonth(target, 1));
+    else if (monthKey(target) < monthKey(firstMonth)) setRightMonth(twoMonths ? shiftMonth(target, 1) : target);
     setFocusDay(clamped);
     pendingFocus.current = clamped;
   };
@@ -268,8 +273,8 @@ export function DateRangePicker({
             className="overlay-surface pop-panel max-w-[calc(100vw-24px)] overflow-hidden rounded-[10px] outline-none"
           >
             <Popover.Title className="sr-only">Choose a date range</Popover.Title>
-            <div className="flex overflow-x-auto">
-              <div className="flex w-[188px] shrink-0 flex-col p-1">
+            <div className="flex justify-center overflow-x-auto sm:justify-start">
+              <div className="hidden w-[188px] shrink-0 flex-col p-1 sm:flex">
                 <span className="px-[10px] py-[6px] text-[12px] tracking-[0.48px] text-section uppercase">Presets</span>
                 {PRESETS.map((p) => (
                   <button
@@ -297,9 +302,9 @@ export function DateRangePicker({
                   {!activePreset ? <Icon icon={Tick02Icon} size={15} className="text-brand" /> : null}
                 </span>
               </div>
-              <Divider orientation="vertical" />
-              <div className="flex gap-7 px-5 pt-3 pb-4">
-                {[leftMonth, rightMonth].map((m, i) => (
+              <Divider orientation="vertical" className="hidden sm:block" />
+              <div className="flex gap-7 px-4 pt-3 pb-4 sm:px-5">
+                {months.map((m, i) => (
                   <div key={monthKey(m)} className="flex flex-col gap-2">
                     <div className="flex h-8 w-[238px] items-center justify-between">
                       {i === 0 ? (
@@ -310,7 +315,7 @@ export function DateRangePicker({
                       <span aria-live="polite" className="text-[14px] leading-5 font-medium text-ink">
                         {formatMonthYear(m.year, m.month)}
                       </span>
-                      {i === 1 ? (
+                      {i === months.length - 1 ? (
                         <IconButton icon={ArrowRight01Icon} label="Next month" iconSize={16} disabled={!canNext} onClick={() => setRightMonth(shiftMonth(rightMonth, 1))} />
                       ) : (
                         <span className="size-8" />
@@ -338,7 +343,7 @@ export function DateRangePicker({
               </div>
             </div>
             <Divider />
-            <div className="flex items-center justify-between gap-4 py-3 pr-3 pl-4">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 pr-3 pl-4">
               <p className="flex items-center gap-2 font-mono text-[11px] leading-[15px]" aria-live="polite">
                 <span className="tnum text-ink">{formatRange(draft.from, summaryTo, true)}</span>
                 <span className="tnum text-muted">

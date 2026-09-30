@@ -90,31 +90,29 @@ export function TeamDetailDialog() {
         </p>
       ) : (
         <>
-          <div className="overflow-x-auto">
-            <div className="flex h-[110px] min-w-[780px] items-center gap-3 px-6">
-              {detail ? (
-                <>
-                  <Kpi label="MG1" metric={detail.kpis.mg1} format="count" icon={FlashIcon} definition="First meetings booked in the selected range." pct={state.pct} caption={caption} />
-                  <Divider orientation="vertical" className="h-[110px] self-auto" />
-                  <Kpi label="Share" metric={detail.kpis.share} format="ratio" icon={UserGroupIcon} definition="This leg’s MG1 as a share of every leg in the current scope." pct={state.pct} caption={caption} />
-                  <Divider orientation="vertical" className="h-[110px] self-auto" />
-                  <Kpi label="Efficiency" metric={detail.kpis.efficiency} format="ratio" icon={DashboardSpeed01Icon} definition="MG1 divided by positive messages." pct={state.pct} caption={caption} />
-                  <Divider orientation="vertical" className="h-[110px] self-auto" />
-                  <Kpi label="New customers" metric={detail.kpis.newCustomers} format="count" icon={UserAdd02Icon} definition="Customers who completed onboarding in the range." pct={state.pct} caption={caption} />
-                </>
-              ) : (
-                Array.from({ length: 4 }, (_, i) => (
-                  <Fragment key={i}>
-                    {i > 0 ? <Divider orientation="vertical" className="h-[110px] self-auto" /> : null}
-                    <div className="flex h-[88px] flex-1 flex-col gap-3">
-                      <Skeleton className="h-3 w-16" />
-                      <Skeleton className="h-6 w-24" />
-                      <Skeleton className="mt-auto h-4 w-20" />
-                    </div>
-                  </Fragment>
-                ))
-              )}
-            </div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-5 px-6 py-4 md:flex md:h-[110px] md:items-center md:gap-3 md:py-0">
+            {detail ? (
+              <>
+                <Kpi label="MG1" metric={detail.kpis.mg1} format="count" icon={FlashIcon} definition="First meetings booked in the selected range." pct={state.pct} caption={caption} />
+                <Divider orientation="vertical" className="hidden h-[110px] self-auto md:block" />
+                <Kpi label="Share" metric={detail.kpis.share} format="ratio" icon={UserGroupIcon} definition="This leg’s MG1 as a share of every leg in the current scope." pct={state.pct} caption={caption} />
+                <Divider orientation="vertical" className="hidden h-[110px] self-auto md:block" />
+                <Kpi label="Efficiency" metric={detail.kpis.efficiency} format="ratio" icon={DashboardSpeed01Icon} definition="MG1 divided by positive messages." pct={state.pct} caption={caption} />
+                <Divider orientation="vertical" className="hidden h-[110px] self-auto md:block" />
+                <Kpi label="New customers" metric={detail.kpis.newCustomers} format="count" icon={UserAdd02Icon} definition="Customers who completed onboarding in the range." pct={state.pct} caption={caption} />
+              </>
+            ) : (
+              Array.from({ length: 4 }, (_, i) => (
+                <Fragment key={i}>
+                  {i > 0 ? <Divider orientation="vertical" className="hidden h-[110px] self-auto md:block" /> : null}
+                  <div className="flex h-[88px] flex-1 flex-col gap-3">
+                    <Skeleton className="h-3 w-16" />
+                    <Skeleton className="h-6 w-24" />
+                    <Skeleton className="mt-auto h-4 w-20" />
+                  </div>
+                </Fragment>
+              ))
+            )}
           </div>
           <Divider />
           <div className="grid md:grid-cols-[1fr_1px_1fr]">
@@ -171,18 +169,19 @@ export function TeamDetailDialog() {
       )}
 
       <Divider />
-      <div className="flex flex-wrap items-center justify-between gap-3 py-[14px] pr-5 pl-6">
+      <div className="grid grid-cols-1 gap-[10px] px-5 py-[14px] sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3 sm:pl-6">
         {shownId ? (
-          <a href={exportUrl(shownId, query)} download className={cn(secondaryButtonClass, "pl-[8px]")}>
+          <a href={exportUrl(shownId, query)} download className={cn(secondaryButtonClass, "pl-[8px] max-sm:justify-center")}>
             <Icon icon={Download04Icon} size={16} />
             Export CSV
           </a>
         ) : (
           <span />
         )}
-        <div className="flex items-center gap-[10px]">
+        <div className="contents sm:flex sm:flex-wrap sm:items-center sm:gap-[10px]">
           <Button
             icon={Mail01Icon}
+            className="max-sm:justify-center"
             onClick={() => {
               if (!shownId) return;
               closeTeam();
@@ -194,7 +193,7 @@ export function TeamDetailDialog() {
           <Button
             icon={pinned ? PinOffIcon : Pin02Icon}
             iconClassName="text-brand"
-            className="text-brand"
+            className="text-brand max-sm:justify-center"
             disabled={pinning || !shownId}
             onClick={() => shownId && toggle({ id: shownId, name, pinned })}
           >

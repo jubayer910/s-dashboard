@@ -24,6 +24,8 @@ export function Segmented<T extends string>({
   variant = "tabs",
   label,
   className,
+  itemClassName,
+  iconClassName,
 }: {
   value: T;
   onValueChange: (value: T) => void;
@@ -31,6 +33,8 @@ export function Segmented<T extends string>({
   variant?: "tabs" | "range";
   label: string;
   className?: string;
+  itemClassName?: string;
+  iconClassName?: string;
 }) {
   return (
     <ToggleGroup
@@ -62,10 +66,11 @@ export function Segmented<T extends string>({
               ? "data-[pressed]:border-track data-[pressed]:shadow-[0_0_4.6px_rgb(0_0_0/0.5),inset_0_2px_4px_rgb(255_255_255/0.2)]"
               : "data-[pressed]:border-line",
             "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand",
+            itemClassName,
           )}
         >
-          {option.icon ? <Icon icon={option.icon} size={16} /> : null}
-          {option.label}
+          {option.icon ? <Icon icon={option.icon} size={16} className={iconClassName} /> : null}
+          <span className="min-w-0 truncate">{option.label}</span>
         </Toggle>
       ))}
     </ToggleGroup>

@@ -115,7 +115,7 @@ function SourceDonut({ sources }: { sources: SourcesData }) {
     <section aria-labelledby="sources-title" className="flex flex-col gap-[22px] px-[13px] pt-[18px] pb-5">
       <TitleBlock id="sources-title" title="Positive message by source" />
       <div className="flex items-center justify-center gap-[14px]">
-        <div className="relative size-[150px] shrink-0">
+        <div className="relative size-[150px] shrink-0 max-[359px]:size-[128px]">
           <svg viewBox="0 0 150 150" className="size-full -rotate-0" aria-hidden onMouseLeave={() => setActive(null)}>
             {arcs.map((a) => (
               <path
@@ -137,7 +137,7 @@ function SourceDonut({ sources }: { sources: SourcesData }) {
             <span className="text-[12px] leading-[1.2] text-ink/50">{activeSource ? activeSource.label : "Total"}</span>
           </div>
         </div>
-        <ul className="flex w-[191px] flex-col gap-[6px]">
+        <ul className="flex max-w-[191px] min-w-0 flex-1 flex-col gap-[6px]">
           {SOURCES.map((s) => (
             <li key={s.key}>
               <button
@@ -227,13 +227,17 @@ function Leaderboard({ rows }: { rows: LeaderRow[] }) {
 
 export function InsightsColumn() {
   const { data, pending } = useDashboard();
+  // One column on phones and beside the table (1280px+); pipeline and donut side by side in between.
   return (
-    <div data-pending={pending} className="data-region flex flex-col">
+    <div data-pending={pending} className="data-region grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] xl:grid-cols-1">
       <ConversionPipeline pipeline={data.pipeline} />
-      <Divider />
+      <Divider className="md:hidden xl:block" />
+      <Divider orientation="vertical" className="hidden md:block xl:hidden" />
       <SourceDonut sources={data.sources} />
-      <Divider />
-      <Leaderboard rows={data.leaderboard} />
+      <Divider className="md:col-span-3 xl:col-span-1" />
+      <div className="md:col-span-3 xl:col-span-1">
+        <Leaderboard rows={data.leaderboard} />
+      </div>
     </div>
   );
 }

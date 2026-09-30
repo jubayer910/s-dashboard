@@ -23,6 +23,13 @@ const COMPARE_TRIGGER: Record<CompareKey, string> = {
   none: "No comparison",
 };
 
+/* Shorter trigger labels for phones, where the three controls share one row */
+const COMPARE_TRIGGER_SHORT: Record<CompareKey, string> = {
+  prior: "vs prior",
+  year: "vs last year",
+  none: "No compare",
+};
+
 export function PageHeader() {
   const { data, state, update } = useDashboard();
   const dateTriggerRef = useRef<HTMLButtonElement>(null);
@@ -39,10 +46,10 @@ export function PageHeader() {
   return (
     <header className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 px-3 py-3">
       <TitleBlock as="h1" title="Performance overview" subtitle="Personal, team and leadership metrics" />
-      <div className="flex flex-wrap items-center gap-[10px]">
+      <div className="grid w-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-[10px] sm:flex sm:w-auto sm:flex-wrap">
         <Menu
           triggerRef={dateTriggerRef}
-          triggerClassName={cn(secondaryButtonClass, "pl-[8px]")}
+          triggerClassName={cn(secondaryButtonClass, "min-w-0 pl-[8px]")}
           trigger={
             <ButtonContent icon={Calendar01Icon} chevron>
               {label}
@@ -69,10 +76,11 @@ export function PageHeader() {
 
         <Menu
           align="end"
-          triggerClassName={cn(secondaryButtonClass, "pl-[8px]")}
+          triggerClassName={cn(secondaryButtonClass, "min-w-0 pl-[8px]")}
           trigger={
             <ButtonContent icon={GitCompareIcon} chevron>
-              {COMPARE_TRIGGER[state.cmp]}
+              <span className="sm:hidden">{COMPARE_TRIGGER_SHORT[state.cmp]}</span>
+              <span className="hidden sm:inline">{COMPARE_TRIGGER[state.cmp]}</span>
             </ButtonContent>
           }
           width={340}

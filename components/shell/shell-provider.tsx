@@ -21,6 +21,9 @@ interface ShellContextValue extends ShellData {
   closeDialog: () => void;
   switchWorkspace: (id: string) => void;
   switching: boolean;
+  /** Sidebar drawer on screens narrower than the persistent sidebar. */
+  navOpen: boolean;
+  setNavOpen: (open: boolean) => void;
   /** Overridden by the dashboard so notifications open the team modal in place. */
   openTeam: (legId: number) => void;
   setOpenTeamHandler: (handler: ((legId: number) => void) | null) => void;
@@ -34,6 +37,7 @@ export function ShellProvider({ data, children }: { data: ShellData; children: R
   const searchParams = useSearchParams();
   const [switching, startTransition] = useTransition();
   const [dialog, setDialog] = useState<DialogState>({ kind: null });
+  const [navOpen, setNavOpen] = useState(false);
   const [openTeamHandler, setOpenTeamHandlerState] = useState<((legId: number) => void) | null>(null);
 
   const setOpenTeamHandler = useCallback((handler: ((legId: number) => void) | null) => {
@@ -45,6 +49,7 @@ export function ShellProvider({ data, children }: { data: ShellData; children: R
       const params = new URLSearchParams(searchParams.toString());
       params.set("ws", id);
       params.delete("team");
+      setNavOpen(false);
       startTransition(() => router.replace(`${pathname}?${params.toString()}`, { scroll: false }));
     },
     [pathname, router, searchParams],
@@ -54,17 +59,22 @@ export function ShellProvider({ data, children }: { data: ShellData; children: R
     () => ({
       ...data,
       dialog,
-      openDialog: (request) => setDialog({ ...request, seq: Date.now() } as DialogState),
+      openDialog: (request) => {
+        setNavOpen(false);
+        setDialog({ ...request, seq: Date.now() } as DialogState);
+      },
       closeDialog: () => setDialog({ kind: null }),
       switchWorkspace,
       switching,
+      navOpen,
+      setNavOpen,
       openTeam: (legId) => {
         if (openTeamHandler) openTeamHandler(legId);
         else router.push(`/?ws=${data.workspace.id}&team=${legId}`);
       },
       setOpenTeamHandler,
     }),
-    [data, dialog, switchWorkspace, switching, openTeamHandler, router, setOpenTeamHandler],
+    [data, dialog, switchWorkspace, switching, navOpen, openTeamHandler, router, setOpenTeamHandler],
   );
 
   return <ShellContext value={value}>{children}</ShellContext>;

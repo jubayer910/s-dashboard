@@ -13,7 +13,10 @@ import type { TeamRow } from "@/lib/types";
 import { useDashboard } from "./dashboard-provider";
 import { TeamActionItems } from "./team-actions";
 
-const GRID = "grid grid-cols-[minmax(250px,1fr)_76px_68px_84px_84px_72px_96px]";
+const GRID = "grid grid-cols-[minmax(190px,1fr)_76px_68px_84px_84px_72px_96px]";
+
+// On narrow screens the table scrolls sideways; the Leg column stays put with an etched edge.
+const STICKY = "sticky left-0 z-[1] bg-page max-md:shadow-[1px_0_0_#000,2px_0_0_#232323]";
 
 const COLUMNS: { key: SortKey; label: string; definition?: string; align: "left" | "right" }[] = [
   { key: "name", label: "Leg", align: "left" },
@@ -48,7 +51,7 @@ function SortHeader({ column }: { column: (typeof COLUMNS)[number] }) {
     <div
       role="columnheader"
       aria-sort={sorted ? (state.dir === "asc" ? "ascending" : "descending") : "none"}
-      className={cn("flex h-9 items-center gap-[2px] border-b border-row-line", column.align === "right" ? "justify-end" : "px-3")}
+      className={cn("flex h-9 items-center gap-[2px] border-b border-row-line", column.align === "right" ? "justify-end" : "px-3", column.key === "name" && STICKY)}
     >
       <button
         type="button"
@@ -102,13 +105,19 @@ function Row({ row, hasCompare }: { row: TeamRow; hasCompare: boolean }) {
           "transition-[background-color] duration-100 ease-out hover:bg-raised hover:duration-0 focus-visible:bg-raised focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand has-[[data-popup-open]]:bg-raised",
         )}
       >
-        <div role="cell" className="flex min-w-0 items-center gap-3 py-3 pr-4 pl-3">
+        <div
+          role="cell"
+          className={cn(
+            STICKY,
+            "flex min-w-0 items-center gap-3 self-stretch py-3 pr-4 pl-3 transition-[background-color] duration-100 ease-out group-hover:bg-raised group-hover:duration-0 group-focus-visible:bg-raised group-has-[[data-popup-open]]:bg-raised",
+          )}
+        >
           <div className="flex min-w-0 flex-1 flex-col gap-[2px]">
             <div className="flex min-w-0 items-center gap-1">
               <span className="truncate text-[14px] leading-5 font-medium tracking-[-0.084px] text-ink">{row.name}</span>
               {row.tier ? <TierBadge tier={row.tier} /> : null}
             </div>
-            <div className="flex items-center gap-[6px] text-[12px] leading-4 text-muted-2">
+            <div className="flex min-w-0 items-center gap-[6px] text-[12px] leading-4 whitespace-nowrap text-muted-2">
               <span>{row.people} people</span>
               {row.reporting ? (
                 <>
@@ -118,14 +127,15 @@ function Row({ row, hasCompare }: { row: TeamRow; hasCompare: boolean }) {
               ) : null}
             </div>
           </div>
-          <div onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
+          {/* Phones open the team modal on tap, which carries the same actions */}
+          <div className="max-md:hidden" onClick={(event) => event.stopPropagation()} onKeyDown={(event) => event.stopPropagation()}>
             <Menu
               align="end"
               width={232}
               triggerLabel={`Actions for ${row.name}`}
               triggerClassName={cn(
                 iconButtonClass,
-                "opacity-0 transition-opacity duration-100 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 focus-visible:opacity-100 data-[popup-open]:opacity-100",
+                "opacity-0 transition-opacity duration-100 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 focus-visible:opacity-100 data-[popup-open]:opacity-100 [@media(hover:none)]:opacity-100",
               )}
               trigger={<Icon icon={MoreHorizontalIcon} size={16} />}
             >
@@ -177,7 +187,7 @@ export function TeamTable() {
       </div>
       <div className="divider-h w-full" />
       <div data-pending={pending} className="data-region overflow-x-auto">
-        <div role="table" aria-labelledby="team-title" className="min-w-[730px]">
+        <div role="table" aria-labelledby="team-title" className="min-w-[670px]">
           <div role="rowgroup">
             <div role="row" className={GRID}>
               {COLUMNS.map((column) => (

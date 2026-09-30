@@ -222,6 +222,30 @@
     transition-timing-function: ease-out;
   }
 
+  /* Navigation drawer (below 1024px): slides from the left edge */
+  .drawer-backdrop {
+    transition: opacity 200ms ease-out;
+  }
+
+  .drawer-backdrop[data-starting-style],
+  .drawer-backdrop[data-ending-style] {
+    opacity: 0;
+  }
+
+  .drawer-popup {
+    transition: transform 240ms var(--ease-out-strong);
+  }
+
+  .drawer-popup[data-starting-style],
+  .drawer-popup[data-ending-style] {
+    transform: translateX(-100%);
+  }
+
+  .drawer-popup[data-ending-style] {
+    transition-duration: 180ms;
+    transition-timing-function: ease-out;
+  }
+
   /* Keyboard-opened overlays and grouped tooltips skip animation */
   [data-kbd],
   .tooltip-popup[data-instant] {
@@ -260,9 +284,16 @@
   .pop-panel,
   .tooltip-popup,
   .dialog-popup,
+  .drawer-popup,
   .icon-swap {
     transition-property: opacity;
     transition-duration: 150ms;
+  }
+
+  .drawer-popup[data-starting-style],
+  .drawer-popup[data-ending-style] {
+    transform: none;
+    opacity: 0;
   }
 
   .pop-menu[data-starting-style],

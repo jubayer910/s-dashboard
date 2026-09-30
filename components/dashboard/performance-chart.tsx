@@ -61,7 +61,7 @@ export function PerformanceChart() {
   useEffect(() => {
     const element = containerRef.current;
     if (!element) return;
-    const observer = new ResizeObserver(([entry]) => setWidth(Math.max(320, entry.contentRect.width)));
+    const observer = new ResizeObserver(([entry]) => setWidth(Math.max(240, entry.contentRect.width)));
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
@@ -132,7 +132,7 @@ export function PerformanceChart() {
 
   return (
     <section aria-labelledby="trend-title" className="flex flex-col px-3 pt-[18px] pb-5">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
         <div className="flex flex-col gap-[7px]">
           <h2 id="trend-title" className="text-[18px] leading-[1.1] font-medium tracking-[-0.36px] text-ink">
             Performance trend

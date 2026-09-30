@@ -57,7 +57,7 @@ export function Menu({
           <BaseMenu.Popup
             data-kbd={keyboard || undefined}
             style={width ? { width } : undefined}
-            className="overlay-surface pop-menu rounded-[10px] p-1 outline-none"
+            className="overlay-surface pop-menu max-w-[calc(100vw-24px)] rounded-[10px] p-1 outline-none"
           >
             {children}
           </BaseMenu.Popup>

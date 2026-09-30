@@ -49,7 +49,7 @@ export function Kpi({
 
   return (
     <div className="relative flex h-[88px] min-w-0 flex-1 flex-col">
-      <p className="pr-10 text-[12px] leading-[1.1] text-kpi">{label}</p>
+      <p className="truncate pr-10 text-[12px] leading-[1.1] text-kpi">{label}</p>
       <p className="tnum mt-[11px] ml-px text-[28px] leading-[23px] font-medium text-ink">{value}</p>
       <div className="mt-auto flex items-center gap-[5px]">
         {delta ? (

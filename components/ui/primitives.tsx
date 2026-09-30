@@ -86,7 +86,7 @@ export function ButtonContent({
   return (
     <>
       {icon ? <Icon icon={icon} size={16} className={cn("text-label", iconClassName)} /> : null}
-      <span>{children}</span>
+      <span className={cn("min-w-0 truncate", chevron && "mr-auto")}>{children}</span>
       {chevron ? (
         <Icon
           icon={ArrowDown01Icon}

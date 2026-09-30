@@ -20,7 +20,8 @@ export function DashboardView({ data }: { data: DashboardData }) {
       <Divider />
       <KpiStrip />
       <Divider />
-      <div className="grid flex-1 xl:grid-cols-[minmax(0,1fr)_1px_402px]">
+      {/* Insights sit beside the main column from 1280px (narrower until the 1440px design width) */}
+      <div className="grid flex-1 grid-cols-[minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_1px_340px] min-[90rem]:grid-cols-[minmax(0,1fr)_1px_402px]">
         <div className="flex min-w-0 flex-col">
           <PerformanceChart />
           <TeamTable />

@@ -13,6 +13,9 @@ export function ScopeTabs() {
         label="Performance scope"
         value={state.tab}
         onValueChange={(tab) => update({ tab })}
+        className="flex w-full sm:inline-flex sm:w-auto"
+        itemClassName="min-w-0 flex-auto justify-center px-[6px] max-sm:text-[13px] sm:flex-none sm:px-[10px]"
+        iconClassName="hidden sm:block"
         options={[
           { value: "me", label: TAB_LABELS.me, icon: User03Icon },
           { value: "team", label: TAB_LABELS.team, icon: UserGroupIcon },
